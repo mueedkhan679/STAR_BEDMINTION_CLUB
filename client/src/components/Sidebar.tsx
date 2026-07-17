@@ -43,7 +43,7 @@ function Sidebar({ onLogout, darkMode, toggleDarkMode }: SidebarProps) {
       </button>
 
       {/* Sidebar - Always visible on desktop, toggleable on mobile */}
-      <aside className={`fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 shadow-xl lg:static lg:block`}>
+      <aside className={`fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 lg:static lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-6">
           <div className="flex items-center gap-3 mb-8">
             <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2 rounded-lg">

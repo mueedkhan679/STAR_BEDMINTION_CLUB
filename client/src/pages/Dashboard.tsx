@@ -145,30 +145,37 @@ function Dashboard() {
   }
 
   return (
-    <div className="p-6 lg:p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">Dashboard</h1>
-        <p className="text-gray-600 dark:text-gray-400">Welcome to Star Badminton Club Management System</p>
+    <div className="p-4 sm:p-6 lg:p-8">
+      {/* Header */}
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-1 sm:mb-2">Dashboard</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Welcome to Star Badminton Club Management System</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {/* Stats Grid - Responsive */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {statCards.map((card, index) => (
           <motion.div
             key={card.title}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className={`${card.bgColor} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300`}
+            transition={{ delay: index * 0.05 }}
+            className={`${card.bgColor} rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 shadow-md sm:shadow-lg hover:shadow-xl transition-shadow duration-300`}
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className={`bg-gradient-to-r ${card.color} p-3 rounded-xl`}>
-                <card.icon className="w-6 h-6 text-white" />
+            {/* Icon */}
+            <div className="flex items-center justify-between mb-2 sm:mb-4">
+              <div className={`bg-gradient-to-r ${card.color} p-2 sm:p-3 rounded-lg sm:rounded-xl`}>
+                <card.icon className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
             </div>
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2">
+
+            {/* Title */}
+            <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 sm:mb-2 leading-tight">
               {card.title}
             </h3>
-            <p className="text-2xl font-bold text-gray-800 dark:text-white">
+
+            {/* Value */}
+            <p className="text-lg sm:text-2xl font-bold text-gray-800 dark:text-white break-words">
               {card.value}
             </p>
           </motion.div>

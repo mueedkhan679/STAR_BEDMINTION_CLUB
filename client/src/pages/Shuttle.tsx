@@ -95,69 +95,70 @@ function Shuttle() {
   }
 
   return (
-    <div className="p-6 lg:p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">Shuttle Usage</h1>
-        <p className="text-gray-600 dark:text-gray-400">Track and manage shuttle stock</p>
+    <div className="p-4 sm:p-6 lg:p-8">
+      {/* Header */}
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-1 sm:mb-2">Shuttle Usage</h1>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Track and manage shuttle stock</p>
       </div>
 
-      {/* Stock Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      {/* Stock Cards - Responsive */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-6 lg:mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl p-6 shadow-lg text-white"
+          className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md sm:shadow-lg text-white"
         >
-          <div className="flex items-center justify-between mb-4">
-            <Package className="w-12 h-12" />
+          <div className="flex items-center justify-between mb-2 sm:mb-4">
+            <Package className="w-8 h-8 sm:w-12 sm:h-12" />
           </div>
-          <h3 className="text-blue-100 text-sm font-medium mb-2">Total Purchased</h3>
-          <p className="text-4xl font-bold">{stock.totalPurchased}</p>
+          <h3 className="text-blue-100 text-xs sm:text-sm font-medium mb-1 sm:mb-2">Total Purchased</h3>
+          <p className="text-2xl sm:text-4xl font-bold">{stock.totalPurchased}</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 shadow-lg text-white"
+          className="bg-gradient-to-br from-orange-500 to-red-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md sm:shadow-lg text-white"
         >
-          <div className="flex items-center justify-between mb-4">
-            <PackageOpen className="w-12 h-12" />
+          <div className="flex items-center justify-between mb-2 sm:mb-4">
+            <PackageOpen className="w-8 h-8 sm:w-12 sm:h-12" />
           </div>
-          <h3 className="text-orange-100 text-sm font-medium mb-2">Total Used</h3>
-          <p className="text-4xl font-bold">{stock.totalUsed}</p>
+          <h3 className="text-orange-100 text-xs sm:text-sm font-medium mb-1 sm:mb-2">Total Used</h3>
+          <p className="text-2xl sm:text-4xl font-bold">{stock.totalUsed}</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 shadow-lg text-white"
+          className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md sm:shadow-lg text-white"
         >
-          <div className="flex items-center justify-between mb-4">
-            <Package className="w-12 h-12" />
+          <div className="flex items-center justify-between mb-2 sm:mb-4">
+            <Package className="w-8 h-8 sm:w-12 sm:h-12" />
           </div>
-          <h3 className="text-green-100 text-sm font-medium mb-2">Remaining Stock</h3>
-          <p className="text-4xl font-bold">{stock.remaining}</p>
+          <h3 className="text-green-100 text-xs sm:text-sm font-medium mb-1 sm:mb-2">Remaining Stock</h3>
+          <p className="text-2xl sm:text-4xl font-bold">{stock.remaining}</p>
         </motion.div>
       </div>
 
       {/* Actions */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">Actions</h2>
-        <div className="flex flex-col sm:flex-row gap-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6">Actions</h2>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <button
             onClick={() => setShowUseModal(true)}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center gap-2"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
           >
-            <PackageOpen className="w-5 h-5" />
+            <PackageOpen className="w-4 h-4 sm:w-5 sm:h-5" />
             Use Shuttle
           </button>
           <button
             onClick={handleReset}
-            className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2"
+            className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
           >
-            <RotateCcw className="w-5 h-5" />
+            <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
             Reset Stock
           </button>
         </div>

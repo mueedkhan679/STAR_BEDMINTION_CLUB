@@ -282,16 +282,18 @@ function App() {
   return (
     <div className={`flex h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Sidebar onLogout={handleLogout} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <div className="flex-1 overflow-auto">
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/players" element={<Players />} />
-          <Route path="/payments" element={<Payments />} />
-          <Route path="/investments" element={<Investments />} />
-          <Route path="/shuttle" element={<Shuttle />} />
-          <Route path="/records" element={<Records />} />
-        </Routes>
+      <div className="flex-1 overflow-auto w-full">
+        <div className="pt-14 lg:pt-0"> {/* Add padding top on mobile for menu button */}
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/players" element={<Players />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/investments" element={<Investments />} />
+            <Route path="/shuttle" element={<Shuttle />} />
+            <Route path="/records" element={<Records />} />
+          </Routes>
+        </div>
       </div>
       
       {/* Voice Assistant */}

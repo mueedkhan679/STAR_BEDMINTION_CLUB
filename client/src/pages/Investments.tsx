@@ -136,42 +136,43 @@ function Investments() {
   }
 
   return (
-    <div className="p-6 lg:p-8">
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="p-4 sm:p-6 lg:p-8">
+      {/* Header */}
+      <div className="mb-6 lg:mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">Expenses & Investments</h1>
-          <p className="text-gray-600 dark:text-gray-400">Track club expenses and investments</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-1 sm:mb-2">Expenses & Investments</h1>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Track club expenses and investments</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={handleDeleteAll}
-            className="bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center gap-2"
+            className="bg-red-500 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
           >
-            <Trash2 className="w-5 h-5" />
-            Delete All
+            <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">Delete All</span>
           </button>
           <button
             onClick={openModal}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center gap-2"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
             Add Record
           </button>
         </div>
       </div>
 
-      {/* Investments Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+      {/* Investments Table - Responsive */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[500px]">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Expense Type</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Amount</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Quantity</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Date</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Time</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">Actions</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Expense Type</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Amount</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Qty</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Date</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Time</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -183,19 +184,19 @@ function Investments() {
                   transition={{ delay: index * 0.05 }}
                   className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4">
                     <div className="flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-purple-600" />
-                      <span className="font-medium text-gray-900 dark:text-white">{investment.expense_type}</span>
+                      <TrendingUp className="w-4 h-4 text-purple-600 flex-shrink-0" />
+                      <span className="font-medium text-gray-900 dark:text-white text-xs sm:text-sm truncate">{investment.expense_type}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm font-semibold text-green-600 dark:text-green-400">Rs. {investment.amount.toFixed(2)}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">{investment.quantity || '-'}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">{new Date(investment.date).toLocaleDateString()}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">{investment.time}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">Rs. {investment.amount.toFixed(2)}</td>
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{investment.quantity || '-'}</td>
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{new Date(investment.date).toLocaleDateString()}</td>
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{investment.time}</td>
+                  <td className="px-3 sm:px-6 py-3 sm:py-4">
                     <button onClick={() => handleDelete(investment.id)} className="text-red-600 hover:text-red-800">
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
                   </td>
                 </motion.tr>
