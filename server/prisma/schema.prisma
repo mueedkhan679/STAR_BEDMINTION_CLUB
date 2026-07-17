@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Player {
+  id          String    @id @default(uuid())
+  playerCode  String    @unique
+  name        String
+  fatherName  String
+  address     String
+  email       String?
+  picture     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  payments    Payment[]
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  playerId    String
+  amount      Float
+  date        DateTime @default(now())
+  time        String
+  player      Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Investment {
+  id          String   @id @default(uuid())
+  expenseType String
+  amount      Float
+  quantity    Int?
+  date        DateTime @default(now())
+  time        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ShuttleStock {
+  id          String   @id @default(uuid())
+  totalStock  Int      @default(0)
+  usedStock   Int      @default(0)
+  remaining   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
