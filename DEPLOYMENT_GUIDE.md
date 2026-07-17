@@ -74,9 +74,9 @@ Your database is already set up on Supabase. Just ensure:
    - Sign in with GitHub
    - Click "New Project"
    - Import your repository
-   - Configure project:
+   - **Important Configuration**:
+     - **Root Directory**: `client` (IMPORTANT!)
      - **Framework Preset**: Vite
-     - **Root Directory**: `client`
      - **Build Command**: `npm run build`
      - **Output Directory**: `dist`
    
@@ -87,6 +87,8 @@ Your database is already set up on Supabase. Just ensure:
    ```
 
 4. **Deploy**: Click "Deploy" button
+
+**Note**: Setting "Root Directory" to `client` is critical! This ensures Vercel installs dependencies from the correct package.json where vite is installed.
 
 ### Method B: Deploy via Vercel CLI
 
@@ -381,21 +383,26 @@ Run: `npx prisma db seed`
 
 ### Common Issues:
 
-1. **CORS Errors**:
+1. **Build Error: `tsc: command not found`**:
+   - **Solution**: Already fixed! The build script now uses `vite build` instead of `tsc && vite build`
+   - Vite handles TypeScript compilation directly
+   - No need for global TypeScript installation
+
+2. **CORS Errors**:
    - Check CORS_ORIGIN in backend .env
    - Ensure frontend URL is correct
 
-2. **Database Connection**:
+3. **Database Connection**:
    - Verify DATABASE_URL is correct
    - Check Supabase project is active
    - Ensure IP whitelist includes Railway/Render
 
-3. **Build Failures**:
+4. **Build Failures**:
    - Check Node.js version (use 18+)
    - Clear cache and rebuild
-   - Check for TypeScript errors
+   - Check for TypeScript errors in code
 
-4. **PDF Not Generating**:
+5. **PDF Not Generating**:
    - Verify jsPDF is installed
    - Check browser console for errors
    - Ensure CORS allows PDF generation
