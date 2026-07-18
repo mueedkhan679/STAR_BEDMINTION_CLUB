@@ -4,10 +4,6 @@
   "installCommand": "cd client && npm install",
   "rewrites": [
     {
-      "source": "/google-site-verification.html",
-      "destination": "/google-site-verification.html"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
