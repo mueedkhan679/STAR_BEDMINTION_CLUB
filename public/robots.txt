@@ -1,0 +1,46 @@
+# Star Badminton Club - Robots.txt
+# https://star-badminton-club.vercel.app
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin pages (optional - remove if you want them indexed)
+Disallow: /dashboard
+Disallow: /players
+Disallow: /payments
+Disallow: /investments
+Disallow: /shuttle
+Disallow: /records
+Disallow: /website-management
+Disallow: /login
+
+# Allow public pages
+Allow: /public-website
+Allow: /
+
+# Sitemap location
+Sitemap: https://star-badminton-club.vercel.app/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots (optional)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
