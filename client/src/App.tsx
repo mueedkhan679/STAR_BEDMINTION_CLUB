@@ -8,6 +8,8 @@ import Payments from './pages/Payments'
 import Investments from './pages/Investments'
 import Shuttle from './pages/Shuttle'
 import Records from './pages/Records'
+import WebsiteManagement from './pages/WebsiteManagement'
+import PublicWebsite from './pages/PublicWebsite'
 import Sidebar from './components/Sidebar'
 import VoiceAssistant from './components/VoiceAssistant'
 
@@ -273,9 +275,22 @@ function App() {
     )
   }
 
+  // Public website route (accessible without authentication)
+  if (window.location.hash === '#/public-website' || window.location.pathname === '/public-website') {
+    console.log('🌐 Showing public website')
+    return <PublicWebsite />
+  }
+
   if (!isAuthenticated) {
     console.log('🔑 Showing login page')
     return <Login onLogin={handleLogin} />
+  }
+
+  // Check if this is a public website access (no auth required)
+  const path = window.location.pathname
+  if (path === '/public-website' || path.startsWith('/public-website/')) {
+    console.log('🌐 Showing public website via path')
+    return <PublicWebsite />
   }
 
   console.log('🏠 Showing main app')
@@ -292,6 +307,8 @@ function App() {
             <Route path="/investments" element={<Investments />} />
             <Route path="/shuttle" element={<Shuttle />} />
             <Route path="/records" element={<Records />} />
+            <Route path="/website" element={<WebsiteManagement />} />
+            <Route path="/public-website" element={<PublicWebsite />} />
           </Routes>
         </div>
       </div>

@@ -166,15 +166,17 @@ class ModernPDFGenerator {
     players: PlayerData[],
     payments: PaymentData[],
     investments: InvestmentData[],
-    shuttleStock: ShuttleStock
+    shuttleStock: ShuttleStock,
+    customTitle?: string
   ): void {
     this.doc = new jsPDF()
     
     // Add watermark first (behind everything)
     this.addWatermark()
     
-    // Header
-    this.addHeader('Payment Records Report')
+    // Header - use custom title if provided
+    const title = customTitle || 'Payment Records Report'
+    this.addHeader(title)
 
     // Summary box
     const summaryY = this.addSummaryBox([

@@ -90,49 +90,56 @@ function Dashboard() {
       value: `Rs. ${stats.totalPayments.toFixed(2)}`,
       icon: DollarSign,
       color: 'from-green-500 to-emerald-600',
-      bgColor: 'bg-green-50 dark:bg-green-900/20'
+      bgColor: 'bg-green-50 dark:bg-green-900/20',
+      borderColor: 'border-green-200 dark:border-green-800'
     },
     {
       title: 'Current Balance',
       value: `Rs. ${stats.currentBalance.toFixed(2)}`,
       icon: Wallet,
       color: 'from-blue-500 to-cyan-600',
-      bgColor: 'bg-blue-50 dark:bg-blue-900/20'
+      bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+      borderColor: 'border-blue-200 dark:border-blue-800'
     },
     {
       title: 'Total Investment',
       value: `Rs. ${stats.totalInvestment.toFixed(2)}`,
       icon: TrendingUp,
       color: 'from-purple-500 to-pink-600',
-      bgColor: 'bg-purple-50 dark:bg-purple-900/20'
+      bgColor: 'bg-purple-50 dark:bg-purple-900/20',
+      borderColor: 'border-purple-200 dark:border-purple-800'
     },
     {
       title: 'Total Shuttles Purchased',
       value: stats.totalShuttlesPurchased.toString(),
       icon: ShoppingCart,
       color: 'from-orange-500 to-red-600',
-      bgColor: 'bg-orange-50 dark:bg-orange-900/20'
+      bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+      borderColor: 'border-orange-200 dark:border-orange-800'
     },
     {
       title: 'Total Shuttles Used',
       value: stats.totalShuttlesUsed.toString(),
       icon: PackageOpen,
       color: 'from-red-500 to-pink-600',
-      bgColor: 'bg-red-50 dark:bg-red-900/20'
+      bgColor: 'bg-red-50 dark:bg-red-900/20',
+      borderColor: 'border-red-200 dark:border-red-800'
     },
     {
       title: 'Remaining Shuttle Stock',
       value: stats.remainingShuttleStock.toString(),
       icon: Package,
       color: 'from-teal-500 to-green-600',
-      bgColor: 'bg-teal-50 dark:bg-teal-900/20'
+      bgColor: 'bg-teal-50 dark:bg-teal-900/20',
+      borderColor: 'border-teal-200 dark:border-teal-800'
     },
     {
       title: 'Total Players',
       value: stats.totalPlayers.toString(),
       icon: Users,
       color: 'from-indigo-500 to-purple-600',
-      bgColor: 'bg-indigo-50 dark:bg-indigo-900/20'
+      bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+      borderColor: 'border-indigo-200 dark:border-indigo-800'
     }
   ]
 
@@ -157,27 +164,76 @@ function Dashboard() {
         {statCards.map((card, index) => (
           <motion.div
             key={card.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className={`${card.bgColor} rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 shadow-md sm:shadow-lg hover:shadow-xl transition-shadow duration-300`}
+            initial={{ opacity: 0, scale: 0.8, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ 
+              delay: index * 0.1,
+              type: "spring",
+              stiffness: 100,
+              damping: 12
+            }}
+            whileHover={{ 
+              scale: 1.05,
+              y: -5,
+              transition: { duration: 0.2 }
+            }}
+            className={`${card.bgColor} ${card.borderColor} border-2 rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 shadow-md sm:shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden`}
           >
-            {/* Icon */}
-            <div className="flex items-center justify-between mb-2 sm:mb-4">
-              <div className={`bg-gradient-to-r ${card.color} p-2 sm:p-3 rounded-lg sm:rounded-xl`}>
+            {/* Animated background gradient on hover */}
+            <motion.div
+              className={`absolute inset-0 bg-gradient-to-r ${card.color} opacity-0`}
+              whileHover={{ opacity: 0.1 }}
+              transition={{ duration: 0.3 }}
+            />
+
+            {/* Icon with pulse animation */}
+            <motion.div
+              className="flex items-center justify-between mb-2 sm:mb-4 relative z-10"
+              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className={`bg-gradient-to-r ${card.color} p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-lg`}>
                 <card.icon className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
-            </div>
+            </motion.div>
 
-            {/* Title */}
-            <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 sm:mb-2 leading-tight">
+            {/* Title with fade-in animation */}
+            <motion.h3 
+              className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 sm:mb-2 leading-tight relative z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: index * 0.1 + 0.2 }}
+            >
               {card.title}
-            </h3>
+            </motion.h3>
 
-            {/* Value */}
-            <p className="text-lg sm:text-2xl font-bold text-gray-800 dark:text-white break-words">
+            {/* Value with count-up animation effect */}
+            <motion.p 
+              className="text-lg sm:text-2xl font-bold text-gray-800 dark:text-white break-words relative z-10"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                delay: index * 0.1 + 0.3,
+                type: "spring",
+                stiffness: 200,
+                damping: 10
+              }}
+            >
               {card.value}
-            </p>
+            </motion.p>
+
+            {/* Shimmer effect on hover */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0"
+              whileHover={{ 
+                opacity: 0.3,
+                x: ["-100%", "100%"]
+              }}
+              transition={{ 
+                duration: 0.8,
+                ease: "easeInOut"
+              }}
+            />
           </motion.div>
         ))}
       </div>

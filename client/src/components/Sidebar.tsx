@@ -10,7 +10,8 @@ import {
   Menu,
   X,
   Moon,
-  Sun
+  Sun,
+  Globe
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -30,6 +31,7 @@ function Sidebar({ onLogout, darkMode, toggleDarkMode }: SidebarProps) {
     { path: '/investments', icon: TrendingUp, label: 'Expenses & Investments' },
     { path: '/shuttle', icon: Package, label: 'Shuttle Usage' },
     { path: '/records', icon: FileText, label: 'Records' },
+    { path: '/website', icon: Globe, label: 'Website Management' },
   ]
 
   return (
