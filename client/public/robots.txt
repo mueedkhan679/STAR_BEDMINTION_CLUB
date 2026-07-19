@@ -1,5 +1,5 @@
 # Star Badminton Club - Robots.txt
-# https://star-badminton-club.vercel.app
+# https://star-bedmintion-club-kjvw.vercel.app
 
 # Block all crawlers from admin pages
 User-agent: *
@@ -17,7 +17,7 @@ Allow: /
 Allow: /public-website
 
 # Sitemap location
-Sitemap: https://star-badminton-club.vercel.app/sitemap.xml
+Sitemap: https://star-bedmintion-club-kjvw.vercel.app/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 1

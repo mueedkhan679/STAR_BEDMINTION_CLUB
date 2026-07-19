@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage (redirects to public-website) -->
   <url>
-    <loc>https://star-badminton-club.vercel.app/</loc>
+    <loc>https://star-bedmintion-club-kjvw.vercel.app/</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,7 +10,7 @@
 
   <!-- Public Website (MAIN PAGE - This is what should appear in Google) -->
   <url>
-    <loc>https://star-badminton-club.vercel.app/public-website</loc>
+    <loc>https://star-bedmintion-club-kjvw.vercel.app/public-website</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
