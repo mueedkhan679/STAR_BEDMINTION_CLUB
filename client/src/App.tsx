@@ -10,6 +10,7 @@ import Shuttle from './pages/Shuttle'
 import Records from './pages/Records'
 import WebsiteManagement from './pages/WebsiteManagement'
 import PublicWebsite from './pages/PublicWebsite'
+import SitemapPage from './pages/SitemapPage'
 import Sidebar from './components/Sidebar'
 import VoiceAssistant from './components/VoiceAssistant'
 import NoIndexWrapper from './components/NoIndexWrapper'
@@ -280,6 +281,12 @@ function App() {
   if (window.location.hash === '#/public-website' || window.location.pathname === '/public-website') {
     console.log('🌐 Showing public website')
     return <PublicWebsite />
+  }
+
+  // Sitemap route (accessible without authentication)
+  if (window.location.pathname === '/sitemap.xml') {
+    console.log('🗺️ Showing sitemap')
+    return <SitemapPage />
   }
 
   if (!isAuthenticated) {
