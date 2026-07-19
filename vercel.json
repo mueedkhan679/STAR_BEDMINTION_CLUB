@@ -4,7 +4,7 @@
   "installCommand": "cd client && npm install",
   "rewrites": [
     {
-      "source": "/((?!sitemap.xml|robots.txt|google-site-verification.html|favicon.ico|manifest.webmanifest|.*\\.(?:png|jpg|jpeg|svg|gif|ico|webp|woff|woff2|ttf|eot)).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
