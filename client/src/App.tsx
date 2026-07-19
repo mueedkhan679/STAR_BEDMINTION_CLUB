@@ -12,6 +12,7 @@ import WebsiteManagement from './pages/WebsiteManagement'
 import PublicWebsite from './pages/PublicWebsite'
 import Sidebar from './components/Sidebar'
 import VoiceAssistant from './components/VoiceAssistant'
+import NoIndexWrapper from './components/NoIndexWrapper'
 
 interface User {
   id: string
@@ -301,13 +302,41 @@ function App() {
         <div className="pt-14 lg:pt-0"> {/* Add padding top on mobile for menu button */}
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/players" element={<Players />} />
-            <Route path="/payments" element={<Payments />} />
-            <Route path="/investments" element={<Investments />} />
-            <Route path="/shuttle" element={<Shuttle />} />
-            <Route path="/records" element={<Records />} />
-            <Route path="/website" element={<WebsiteManagement />} />
+            <Route path="/dashboard" element={
+              <NoIndexWrapper>
+                <Dashboard />
+              </NoIndexWrapper>
+            } />
+            <Route path="/players" element={
+              <NoIndexWrapper>
+                <Players />
+              </NoIndexWrapper>
+            } />
+            <Route path="/payments" element={
+              <NoIndexWrapper>
+                <Payments />
+              </NoIndexWrapper>
+            } />
+            <Route path="/investments" element={
+              <NoIndexWrapper>
+                <Investments />
+              </NoIndexWrapper>
+            } />
+            <Route path="/shuttle" element={
+              <NoIndexWrapper>
+                <Shuttle />
+              </NoIndexWrapper>
+            } />
+            <Route path="/records" element={
+              <NoIndexWrapper>
+                <Records />
+              </NoIndexWrapper>
+            } />
+            <Route path="/website" element={
+              <NoIndexWrapper>
+                <WebsiteManagement />
+              </NoIndexWrapper>
+            } />
             <Route path="/public-website" element={<PublicWebsite />} />
           </Routes>
         </div>
