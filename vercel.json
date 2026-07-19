@@ -4,7 +4,7 @@
   "installCommand": "cd client && npm install",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!sitemap.xml|robots.txt|google-site-verification.html|favicon.ico|manifest.webmanifest|.*\\.(?:png|jpg|jpeg|svg|gif|ico|webp|woff|woff2|ttf|eot)).*)",
       "destination": "/index.html"
     }
   ],
@@ -23,6 +23,15 @@
         {
           "key": "X-XSS-Protection",
           "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/(dashboard|players|payments|investments|shuttle|records|website-management|login)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }
