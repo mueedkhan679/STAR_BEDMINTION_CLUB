@@ -147,8 +147,13 @@ function PublicWebsite() {
 
   useEffect(() => {
     const loadData = async () => {
-      await fetchWebsiteData()
-      setDataLoaded(true)
+      try {
+        await fetchWebsiteData()
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      } finally {
+        setDataLoaded(true)
+      }
     }
     loadData()
   }, [])
