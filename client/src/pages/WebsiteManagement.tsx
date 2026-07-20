@@ -118,6 +118,7 @@ function WebsiteManagement() {
   const [showNotificationModal, setShowNotificationModal] = useState(false)
   const [editingNotification, setEditingNotification] = useState<Notification | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const [contentForm, setContentForm] = useState({
     website_name: '',
@@ -175,10 +176,10 @@ function WebsiteManagement() {
   })
 
   useEffect(() => {
-    fetchData()
+    loadData()
   }, [])
 
-  const fetchData = async () => {
+  const loadData = async () => {
     try {
       const [contentRes, postsRes, mediaRes, timingRes, playersRes, starsRes, notificationsRes] = await Promise.all([
         supabase.from('website_content').select('*').single(),
@@ -223,7 +224,13 @@ function WebsiteManagement() {
     } catch (error) {
       console.error('Error fetching data:', error)
       toast.error('Failed to fetch data')
+    } finally {
+      setLoading(false)
     }
+  }
+
+  const fetchData = async () => {
+    await loadData()
   }
 
   const handleSaveContent = async () => {
@@ -604,6 +611,38 @@ function WebsiteManagement() {
       is_active: notification.is_active
     })
     setShowNotificationModal(true)
+  }
+
+  if (loading) {
+    return (
+      <div className="p-4 sm:p-6 lg:p-8">
+        {/* Header Skeleton */}
+        <div className="mb-6 lg:mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="space-y-3">
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded-lg w-64 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-96 animate-pulse"></div>
+          </div>
+          <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-40 animate-pulse"></div>
+        </div>
+        
+        {/* Tabs Skeleton */}
+        <div className="mb-6 flex gap-4">
+          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+            <div key={i} className="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg w-32 animate-pulse"></div>
+          ))}
+        </div>
+        
+        {/* Content Skeleton */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg p-4 sm:p-6 space-y-4">
+          <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/3 animate-pulse"></div>
+          <div className="space-y-3">
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
