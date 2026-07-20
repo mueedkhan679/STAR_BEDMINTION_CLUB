@@ -146,13 +146,14 @@ function PublicWebsite() {
   const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
+    // Immediately show the website, fetch data in background
+    setDataLoaded(true)
+    
     const loadData = async () => {
       try {
         await fetchWebsiteData()
       } catch (error) {
         console.error('Failed to fetch data:', error)
-      } finally {
-        setDataLoaded(true)
       }
     }
     loadData()

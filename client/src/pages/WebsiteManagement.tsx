@@ -176,7 +176,10 @@ function WebsiteManagement() {
   })
 
   useEffect(() => {
+    // Render immediately, fetch data in background
+    const timer = setTimeout(() => setLoading(false), 3000) // Fallback timeout
     loadData()
+    return () => clearTimeout(timer)
   }, [])
 
   const loadData = async () => {
