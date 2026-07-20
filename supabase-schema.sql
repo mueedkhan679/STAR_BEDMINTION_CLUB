@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS players (
   address TEXT NOT NULL,
   email TEXT,
   picture TEXT,
+  description TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
