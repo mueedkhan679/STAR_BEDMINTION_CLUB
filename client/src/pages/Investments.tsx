@@ -15,7 +15,6 @@ interface Investment {
 
 function Investments() {
   const [investments, setInvestments] = useState<Investment[]>([])
-  const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
     expense_type: 'Shuttle',
@@ -39,8 +38,6 @@ function Investments() {
       if (data) setInvestments(data)
     } catch (error) {
       toast.error('Failed to fetch investments')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -125,14 +122,6 @@ function Investments() {
 
   const closeModal = () => {
     setShowModal(false)
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    )
   }
 
   return (

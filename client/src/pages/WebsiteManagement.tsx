@@ -102,7 +102,6 @@ function WebsiteManagement() {
   const [players, setPlayers] = useState<Player[]>([])
   const [playerStars, setPlayerStars] = useState<PlayerStar[]>([])
   const [notifications, setNotifications] = useState<Notification[]>([])
-  const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<TabType>('content')
   
   const [editingContent, setEditingContent] = useState(false)
@@ -224,8 +223,6 @@ function WebsiteManagement() {
     } catch (error) {
       console.error('Error fetching data:', error)
       toast.error('Failed to fetch data')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -607,14 +604,6 @@ function WebsiteManagement() {
       is_active: notification.is_active
     })
     setShowNotificationModal(true)
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    )
   }
 
   return (

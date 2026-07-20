@@ -140,7 +140,6 @@ interface Payment {
 function Payments() {
   const [payments, setPayments] = useState<Payment[]>([])
   const [players, setPlayers] = useState<Player[]>([])
-  const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [paymentType, setPaymentType] = useState<'single' | 'multiple' | 'all'>('single')
   const [selectedPlayers, setSelectedPlayers] = useState<string[]>([])
@@ -165,8 +164,6 @@ function Payments() {
       if (playersRes.data) setPlayers(playersRes.data)
     } catch (error) {
       toast.error('Failed to fetch data')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -381,14 +378,6 @@ function Payments() {
       prev.includes(playerId)
         ? prev.filter(id => id !== playerId)
         : [...prev, playerId]
-    )
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
     )
   }
 

@@ -17,7 +17,6 @@ function Shuttle() {
     totalUsed: 0,
     remaining: 0
   })
-  const [loading, setLoading] = useState(true)
   const [showUseModal, setShowUseModal] = useState(false)
   const [useQuantity, setUseQuantity] = useState('')
 
@@ -32,8 +31,6 @@ function Shuttle() {
     } catch (error) {
       console.error('Error in fetchStock:', error)
       toast.error('Failed to fetch shuttle stock')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -84,14 +81,6 @@ function Shuttle() {
     } catch (error) {
       toast.error('Failed to reset stock')
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    )
   }
 
   return (

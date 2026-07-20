@@ -12,7 +12,7 @@ interface Player {
   father_name: string
   address: string
   email?: string
-  picture?: stri9g
+  picture?: string
 }
 
 interface Payment {
@@ -39,7 +39,6 @@ function Records() {
   const [activeTab, setActiveTab] = useState<TabType>('payments')
   const [payments, setPayments] = useState<Payment[]>([])
   const [investments, setInvestments] = useState<Investment[]>([])
-  const [loading, setLoading] = useState(true)
   const [showPDFModal, setShowPDFModal] = useState(false)
   const [pdfType, setPdfType] = useState<'payments' | 'investments'>('payments')
   const [selectedInstallment, setSelectedInstallment] = useState<number | null>(null)
@@ -63,8 +62,6 @@ function Records() {
       if (investmentsRes.data) setInvestments(investmentsRes.data)
     } catch (error) {
       toast.error('Failed to fetch records')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -258,14 +255,6 @@ function Records() {
       console.error('PDF generation error:', error)
       toast.error('Failed to generate PDF')
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    )
   }
 
   return (

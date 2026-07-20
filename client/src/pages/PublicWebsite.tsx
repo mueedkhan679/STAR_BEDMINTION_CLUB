@@ -249,55 +249,6 @@ function PublicWebsite() {
     }
   }, [mediaPosts.length, selectedAlbum, selectedPlayer])
 
-  if (showLanding) {
-    return (
-      <div className="fixed inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 flex items-center justify-center z-50">
-        <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="text-center"
-        >
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="w-32 h-32 mx-auto mb-6"
-          >
-            <BadmintonLogo />
-          </motion.div>
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent mb-4"
-          >
-            STAR BADMINTON CLUB
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1.1 }}
-            className="text-xl text-blue-100 font-medium"
-          >
-            Dargai
-          </motion.p>
-        </motion.div>
-      </div>
-    )
-  }
-
-  if (loading) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 z-50">
-        <div className="text-center">
-          <BadmintonLogo />
-          <div className="text-white text-2xl font-bold mt-4">Loading...</div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-50 relative overflow-hidden">
       {/* Animated Background Shapes */}

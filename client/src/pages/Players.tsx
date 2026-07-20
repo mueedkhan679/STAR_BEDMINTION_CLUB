@@ -7,7 +7,6 @@ import toast from 'react-hot-toast'
 
 function Players() {
   const [players, setPlayers] = useState<Player[]>([])
-  const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [editingPlayer, setEditingPlayer] = useState<Player | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -35,8 +34,6 @@ function Players() {
       if (data) setPlayers(data)
     } catch (error) {
       toast.error('Failed to fetch players')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -161,14 +158,6 @@ function Players() {
       }
       reader.readAsDataURL(file)
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    )
   }
 
   return (
