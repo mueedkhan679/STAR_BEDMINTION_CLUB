@@ -303,7 +303,7 @@ function PublicWebsite() {
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={`circle-${i}`}
-            className="absolute rounded-full bg-blue-200/30"
+            className="absolute rounded-full bg-blue-200/50"
             animate={{
               y: [0, -30, 0],
               x: [0, Math.random() * 50 - 25, 0],
@@ -328,7 +328,7 @@ function PublicWebsite() {
         {[...Array(4)].map((_, i) => (
           <motion.div
             key={`square-${i}`}
-            className="absolute rounded-lg bg-blue-300/20"
+            className="absolute rounded-lg bg-blue-300/30"
             animate={{
               y: [0, 40, 0],
               rotate: [0, 180, 360],
@@ -458,7 +458,7 @@ function PublicWebsite() {
                   </span>
                 </motion.div>
                 <motion.h2 
-                  className="text-3xl sm:text-5xl font-bold leading-tight mb-3 drop-shadow-lg"
+                  className="text-3xl sm:text-5xl font-bold leading-tight mb-3 drop-shadow-lg text-white"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
@@ -502,7 +502,7 @@ function PublicWebsite() {
                 <motion.button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className="h-2 rounded-full transition-all"
+                  className="h-2 rounded-full transition-all bg-white"
                   whileHover={{ scale: 1.3 }}
                 />
               ))}
@@ -525,7 +525,7 @@ function PublicWebsite() {
               <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
                 Latest Updates
               </h3>
-              <p className="text-blue-600">Stay informed with the latest news</p>
+              <p className="text-blue-700 font-medium">Stay informed with the latest news</p>
             </div>
             <div className="space-y-6 max-w-4xl mx-auto">
               {posts.map((post, idx) => (
@@ -543,8 +543,8 @@ function PublicWebsite() {
                       </div>
                     )}
                     <div className="flex-1">
-                      <h4 className="text-2xl font-bold text-white mb-2">{post.title}</h4>
-                      <p className="text-amber-100 leading-relaxed">{post.content}</p>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-2">{post.title}</h4>
+                      <p className="text-gray-800 leading-relaxed">{post.content}</p>
                       {post.image_url && (
                         <img 
                           src={post.image_url} 
@@ -553,7 +553,7 @@ function PublicWebsite() {
                           onError={() => handleImageError(post.id)}
                         />
                       )}
-                      <span className="text-xs text-amber-300 mt-3 block">
+                      <span className="text-xs text-gray-600 mt-3 block">
                         {new Date(post.created_at).toLocaleDateString('en-US', { 
                           month: 'long', 
                           day: 'numeric', 
@@ -579,7 +579,7 @@ function PublicWebsite() {
             <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
               Club Leadership
             </h3>
-            <p className="text-blue-600">Meet the team behind Star Badminton Club</p>
+            <p className="text-blue-700 font-medium">Meet the team behind Star Badminton Club</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Director Profile */}
@@ -603,13 +603,13 @@ function PublicWebsite() {
                   </div>
                 )}
               </div>
-              <h4 className="text-xl font-bold text-white mb-1">
+              <h4 className="text-xl font-bold text-gray-900 mb-1">
                 {websiteContent?.director_name || 'Kaleem Ullah'}
               </h4>
-              <p className="text-sm text-purple-300 mb-2">Club Director</p>
+              <p className="text-sm text-purple-800 mb-2 font-semibold">Club Director</p>
               <div className="flex items-center justify-center gap-1">
-                <Trophy className="w-4 h-4 text-yellow-400" />
-                <span className="text-xs text-yellow-300">Leading since 2016</span>
+                <Trophy className="w-4 h-4 text-yellow-500" />
+                <span className="text-xs text-yellow-700 font-medium">Leading since 2016</span>
               </div>
             </motion.div>
 
@@ -635,13 +635,13 @@ function PublicWebsite() {
                   </div>
                 )}
               </div>
-              <h4 className="text-xl font-bold text-white mb-1">
+              <h4 className="text-xl font-bold text-gray-900 mb-1">
                 {websiteContent?.manager_name || 'Yahya'}
               </h4>
-              <p className="text-sm text-blue-300 mb-2">Club Manager</p>
+              <p className="text-sm text-blue-800 mb-2 font-semibold">Club Manager</p>
               <div className="flex items-center justify-center gap-1">
-                <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="text-xs text-yellow-300">Managing since 2016</span>
+                <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                <span className="text-xs text-yellow-700 font-medium">Managing since 2016</span>
               </div>
             </motion.div>
           </div>
@@ -664,7 +664,7 @@ function PublicWebsite() {
                   Game Timing
                 </h3>
               </div>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-base text-gray-800 leading-relaxed font-medium">
                 {gameTimings.description || `We play badminton ${gameTimings.day.toLowerCase()} from ${formatTime(gameTimings.start_time)} to ${formatTime(gameTimings.end_time)}.`}
               </p>
             </div>
@@ -682,7 +682,7 @@ function PublicWebsite() {
             <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
               Our Players
             </h3>
-            <p className="text-blue-600">Star-ranked players (highest rated first)</p>
+            <p className="text-blue-700 font-medium">Star-ranked players (highest rated first)</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {players.map((player, idx) => {
@@ -713,24 +713,15 @@ function PublicWebsite() {
                       </div>
                     )}
                   </div>
-                  <h4 className="text-lg font-semibold text-white mb-1">{player.name}</h4>
-                  <div className="flex items-center justify-center gap-1 text-blue-300">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star
-                        key={star}
-                        className={`w-4 h-4 ${
-                          star <= playerStarRating
-                            ? 'text-yellow-400 fill-current'
-                            : 'text-gray-600'
-                        }`}
-                      />
-                    ))}
+                  <h4 className="text-lg font-semibold text-gray-900 mb-1">{player.name}</h4>
+                  <div className="flex items-center justify-center gap-1 text-gray-700">
+                    {[1, 2, 3, 4, 5].map((star) => <Star key={star} className={`w-4 h-4 ${star <= playerStarRating ? 'text-yellow-500 fill-current' : 'text-gray-400'}`} />)}
                   </div>
                   {(player as any).description && (
-                    <p className="text-xs text-blue-100 mt-2 line-clamp-2">{(player as any).description}</p>
+                    <p className="text-xs text-gray-800 mt-2 line-clamp-2 font-medium">{(player as any).description}</p>
                   )}
                   {player.playing_since && (
-                    <span className="text-xs text-blue-200 mt-1 block">Since {player.playing_since}</span>
+                    <span className="text-xs text-blue-800 mt-1 block font-semibold">Since {player.playing_since}</span>
                   )}
                 </motion.div>
               )
@@ -754,7 +745,7 @@ function PublicWebsite() {
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="min-h-screen py-12 px-4"
-                onClick={(e?) => e?.stopPropagation()}
+                onClick={(e?: any) => e?.stopPropagation?.()}
               >
                 <div className="bg-white rounded-3xl shadow-2xl max-w-4xl mx-auto overflow-hidden">
                   {/* Header with gradient */}
@@ -857,7 +848,7 @@ function PublicWebsite() {
                           </div>
                           <h3 className="font-semibold text-blue-900">Player Code</h3>
                         </div>
-                        <p className="text-2xl font-bold text-gray-800 font-mono">{selectedPlayer.player_code || 'N/A'}</p>
+                        <p className="text-2xl font-bold text-gray-900 font-mono">{selectedPlayer.player_code || 'N/A'}</p>
                       </motion.div>
 
                       {/* Member Since */}
@@ -895,7 +886,7 @@ function PublicWebsite() {
                             </div>
                             <h3 className="font-semibold text-purple-900">Email</h3>
                           </div>
-                          <a href={`mailto:${selectedPlayer.email}`} className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2">
+                          <a href={`mailto:${selectedPlayer.email}`} className="text-blue-700 hover:text-blue-900 font-bold flex items-center gap-2 underline">
                             {selectedPlayer.email}
                             <ExternalLink className="w-4 h-4" />
                           </a>
@@ -916,7 +907,7 @@ function PublicWebsite() {
                             </div>
                             <h3 className="font-semibold text-orange-900">Address</h3>
                           </div>
-                          <p className="text-gray-700">{selectedPlayer.address}</p>
+                          <p className="text-gray-800 font-medium">{selectedPlayer.address}</p>
                         </motion.div>
                       )}
                     </div>
@@ -935,7 +926,7 @@ function PublicWebsite() {
                           </div>
                           <h3 className="font-semibold text-indigo-900">About Player</h3>
                         </div>
-                        <p className="text-gray-700 leading-relaxed">{(selectedPlayer as any).description}</p>
+                        <p className="text-gray-800 leading-relaxed font-medium">{(selectedPlayer as any).description}</p>
                       </motion.div>
                     )}
 
@@ -1071,7 +1062,7 @@ function PublicWebsite() {
                   >
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      onClick={(e) => {e.stopPropagation(); prevImage()}}
+                      onClick={(e: any) => {e.stopPropagation?.(); prevImage()}}
                       className="absolute left-4 top-1/2 -translate-y-1/2 bg-blue-500/20 hover:bg-blue-500/40 p-3 rounded-full text-white"
                     >
                       <ChevronLeft className="w-6 h-6" />
@@ -1081,13 +1072,13 @@ function PublicWebsite() {
                       src={selectedAlbum.posts[selectedImageIndex]?.url} 
                       alt={selectedAlbum.posts[selectedImageIndex]?.caption}
                       className="max-w-full max-h-full object-contain"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e: any) => e.stopPropagation?.()}
                       onError={() => handleImageError(selectedAlbum.posts[selectedImageIndex].id)}
                     />
 
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      onClick={(e) => {e.stopPropagation(); nextImage()}}
+                      onClick={(e: any) => {e.stopPropagation?.(); nextImage()}}
                       className="absolute right-4 top-1/2 -translate-y-1/2 bg-blue-500/20 hover:bg-blue-500/40 p-3 rounded-full text-white"
                     >
                       <ChevronRight className="w-6 h-6" />
