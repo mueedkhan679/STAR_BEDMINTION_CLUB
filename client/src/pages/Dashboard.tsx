@@ -32,7 +32,6 @@ function Dashboard() {
     remainingShuttleStock: 0,
     totalPlayers: 0
   })
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchDashboardData()
@@ -79,8 +78,6 @@ function Dashboard() {
       })
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -142,14 +139,6 @@ function Dashboard() {
       borderColor: 'border-indigo-200 dark:border-indigo-800'
     }
   ]
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    )
-  }
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">

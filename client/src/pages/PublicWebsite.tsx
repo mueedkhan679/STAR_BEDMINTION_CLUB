@@ -289,8 +289,11 @@ function PublicWebsite() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-blue-700">
-        <div className="text-2xl font-bold text-white animate-pulse">Loading...</div>
+      <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 z-50">
+        <div className="text-center">
+          <BadmintonLogo />
+          <div className="text-white text-2xl font-bold mt-4">Loading...</div>
+        </div>
       </div>
     )
   }

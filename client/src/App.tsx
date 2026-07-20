@@ -23,7 +23,6 @@ interface User {
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
   const [players, setPlayers] = useState<Array<{ id: string; name: string; player_code: string }>>([])
   const [darkMode, setDarkMode] = useState(false)
 
@@ -44,8 +43,6 @@ function App() {
     if (darkModePreference) {
       setDarkMode(darkModePreference === 'true')
     }
-
-    setLoading(false)
   }, [])
 
   // Fetch players for voice assistant
@@ -267,14 +264,6 @@ function App() {
     // Navigation is handled by React Router, this is just for logging
     // The actual navigation will happen via window.location or React Router's navigate function
     window.location.hash = `#/${page}`
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
-        <div className="text-white text-2xl font-bold">Loading...</div>
-      </div>
-    )
   }
 
   // Public website route (accessible without authentication)
