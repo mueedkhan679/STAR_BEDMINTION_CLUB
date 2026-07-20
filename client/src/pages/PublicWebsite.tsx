@@ -155,28 +155,51 @@ function PublicWebsite() {
 
   const fetchWebsiteData = async () => {
     try {
+      // Add timeout to prevent infinite loading
+      const timeoutPromise = new Promise((resolve) => 
+        setTimeout(() => resolve(null), 5000)
+      )
+      
       const [contentRes, postsRes, mediaRes, timingRes, playersRes, starsRes] = await Promise.all([
-        supabase.from('website_content').select('*').single(),
-        supabase.from('posts').select('*').order('is_pinned', { ascending: false }).order('created_at', { ascending: false }),
-        supabase.from('media_posts').select('*').order('created_at', { ascending: false }),
-        supabase.from('game_timings').select('*').eq('is_active', true).single(),
-        supabase.from('players').select('*').order('created_at', { ascending: false }),
-        supabase.from('player_stars').select('*')
+        Promise.race([
+          supabase.from('website_content').select('*').single(),
+          timeoutPromise.then(() => ({ data: null }))
+        ]),
+        Promise.race([
+          supabase.from('posts').select('*').order('is_pinned', { ascending: false }).order('created_at', { ascending: false }),
+          timeoutPromise.then(() => ({ data: [] }))
+        ]),
+        Promise.race([
+          supabase.from('media_posts').select('*').order('created_at', { ascending: false }),
+          timeoutPromise.then(() => ({ data: [] }))
+        ]),
+        Promise.race([
+          supabase.from('game_timings').select('*').eq('is_active', true).single(),
+          timeoutPromise.then(() => ({ data: null }))
+        ]),
+        Promise.race([
+          supabase.from('players').select('*').order('created_at', { ascending: false }),
+          timeoutPromise.then(() => ({ data: [] }))
+        ]),
+        Promise.race([
+          supabase.from('player_stars').select('*'),
+          timeoutPromise.then(() => ({ data: [] }))
+        ])
       ])
 
-      if (contentRes.data) setWebsiteContent(contentRes.data)
-      if (postsRes.data) setPosts(postsRes.data)
-      if (mediaRes.data) {
+      if (contentRes?.data) setWebsiteContent(contentRes.data)
+      if (postsRes?.data) setPosts(postsRes.data)
+      if (mediaRes?.data) {
         setMediaPosts(mediaRes.data)
         const grouped = groupPostsByDate(mediaRes.data)
         setAlbums(grouped)
       }
-      if (timingRes.data) setGameTimings(timingRes.data)
-      if (playersRes.data) {
-        const sortedPlayers = sortPlayersByStars(playersRes.data, starsRes.data || [])
+      if (timingRes?.data) setGameTimings(timingRes.data)
+      if (playersRes?.data) {
+        const sortedPlayers = sortPlayersByStars(playersRes.data, starsRes?.data || [])
         setPlayers(sortedPlayers)
       }
-      if (starsRes.data) setPlayerStars(starsRes.data)
+      if (starsRes?.data) setPlayerStars(starsRes.data)
     } catch (error) {
       console.error('Error fetching website data:', error)
     }
