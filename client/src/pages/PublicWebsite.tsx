@@ -143,12 +143,9 @@ function PublicWebsite() {
   const [viewMode, setViewMode] = useState<'albums' | 'gallery'>('albums')
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set())
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
-    // Immediately show the website, fetch data in background
-    setDataLoaded(true)
-    
+    // Fetch data in background, don't block rendering
     const loadData = async () => {
       try {
         await fetchWebsiteData()
@@ -300,14 +297,6 @@ function PublicWebsite() {
       return () => clearInterval(timer)
     }
   }, [mediaPosts.length, selectedAlbum, selectedPlayer])
-
-  if (!dataLoaded) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-blue-700">
-        <div className="text-white text-2xl font-bold">Loading...</div>
-      </div>
-    )
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-50 relative overflow-hidden">
