@@ -140,20 +140,17 @@ function PublicWebsite() {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null)
-  const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState<'albums' | 'gallery'>('albums')
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set())
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [showLanding, setShowLanding] = useState(true)
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
-    fetchWebsiteData()
-    
-    const timer = setTimeout(() => {
-      setShowLanding(false)
-    }, 2000)
-    
-    return () => clearTimeout(timer)
+    const loadData = async () => {
+      await fetchWebsiteData()
+      setDataLoaded(true)
+    }
+    loadData()
   }, [])
 
   const fetchWebsiteData = async () => {
@@ -182,8 +179,6 @@ function PublicWebsite() {
       if (starsRes.data) setPlayerStars(starsRes.data)
     } catch (error) {
       console.error('Error fetching website data:', error)
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -213,7 +208,35 @@ function PublicWebsite() {
   }
 
   const handleImageError = (id: string) => {
+    console.error('Image failed to load:', id)
     setImageErrors(prev => new Set(prev).add(id))
+  }
+
+  // Generic image component with fallback
+  const SafeImage = ({ src, alt, className, onError, ...props }: { src: string, alt: string, className?: string, onError?: () => void } & React.ImgHTMLAttributes<HTMLImageElement>) => {
+    const [imgError, setImgError] = useState(false)
+    
+    if (imgError || !src) {
+      return (
+        <div className={`${className} bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center`}>
+          <ImageIcon className="w-12 h-12 text-white/50" />
+        </div>
+      )
+    }
+    
+    return (
+      <img 
+        src={src} 
+        alt={alt}
+        className={className}
+        onClick={props.onClick}
+        onError={() => {
+          setImgError(true)
+          onError?.()
+        }}
+        loading="lazy"
+      />
+    )
   }
 
   const nextImage = () => {
@@ -248,6 +271,14 @@ function PublicWebsite() {
       return () => clearInterval(timer)
     }
   }, [mediaPosts.length, selectedAlbum, selectedPlayer])
+
+  if (!dataLoaded) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-blue-700">
+        <div className="text-white text-2xl font-bold">Loading...</div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-50 relative overflow-hidden">
@@ -375,7 +406,7 @@ function PublicWebsite() {
               className="absolute inset-0 flex items-center justify-center p-8"
             >
               <div className="relative w-full h-full max-w-6xl mx-auto flex items-center justify-center">
-                <img 
+                <SafeImage 
                   src={mediaPosts[currentSlide].url} 
                   alt={mediaPosts[currentSlide].caption}
                   className="max-w-full max-h-full object-contain"
@@ -500,7 +531,7 @@ function PublicWebsite() {
                   <h4 className="text-2xl font-bold text-gray-900 mb-2">{post.title}</h4>
                       <p className="text-gray-800 leading-relaxed">{post.content}</p>
                       {post.image_url && (
-                        <img 
+                        <SafeImage 
                           src={post.image_url} 
                           alt={post.title}
                           className="mt-4 rounded-lg max-h-96 object-cover w-full"
@@ -546,7 +577,7 @@ function PublicWebsite() {
             >
               <div className="mb-4 flex justify-center">
                 {websiteContent?.director_profile_url ? (
-                  <img 
+                  <SafeImage 
                     src={websiteContent.director_profile_url} 
                     alt={websiteContent.director_name || 'Director'}
                     className="w-32 h-32 rounded-full object-cover border-4 border-purple-500 shadow-lg"
@@ -578,7 +609,7 @@ function PublicWebsite() {
             >
               <div className="mb-4 flex justify-center">
                 {websiteContent?.manager_profile_url ? (
-                  <img 
+                  <SafeImage 
                     src={websiteContent.manager_profile_url} 
                     alt={websiteContent.manager_name || 'Manager'}
                     className="w-32 h-32 rounded-full object-cover border-4 border-blue-500 shadow-lg"
@@ -653,15 +684,15 @@ function PublicWebsite() {
                   onClick={() => setSelectedPlayer(player)}
                   className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md rounded-xl shadow-lg p-6 text-center border-2 border-blue-500/30 hover:border-blue-400/50 transition-all cursor-pointer"
                 >
-                  <div className="mb-4 flex justify-center">
-                    {player.picture && !imageErrors.has(player.id) ? (
-                      <img 
-                        src={player.picture} 
-                        alt={player.name}
-                        className="w-24 h-24 rounded-full object-cover border-4 border-blue-500 shadow-lg"
-                        onError={() => handleImageError(player.id)}
-                      />
-                    ) : (
+              <div className="mb-4 flex justify-center">
+                {player.picture && !imageErrors.has(player.id) ? (
+                  <SafeImage 
+                    src={player.picture} 
+                    alt={player.name}
+                    className="w-24 h-24 rounded-full object-cover border-4 border-blue-500 shadow-lg"
+                    onError={() => handleImageError(player.id)}
+                  />
+                ) : (
                       <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center border-4 border-blue-500 shadow-lg">
                         <User className="w-12 h-12 text-white" />
                       </div>
@@ -723,7 +754,7 @@ function PublicWebsite() {
                         className="relative"
                       >
                         {selectedPlayer.picture && !imageErrors.has(selectedPlayer.id) ? (
-                          <img
+                          <SafeImage
                             src={selectedPlayer.picture}
                             alt={selectedPlayer.name}
                             className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-2xl"
@@ -897,7 +928,7 @@ function PublicWebsite() {
                           Profile Picture
                         </h3>
                         <div className="flex justify-center">
-                          <img
+                          <SafeImage
                             src={selectedPlayer.picture}
                             alt={selectedPlayer.name}
                             className="max-w-md rounded-2xl shadow-2xl border-4 border-blue-200"
@@ -995,7 +1026,7 @@ function PublicWebsite() {
                     onClick={() => setSelectedImageIndex(idx)}
                     className="aspect-square bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all border-2 border-white/10 hover:border-blue-400/50"
                   >
-                    <img 
+                    <SafeImage 
                       src={post.url} 
                       alt={post.caption}
                       className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
@@ -1022,7 +1053,7 @@ function PublicWebsite() {
                       <ChevronLeft className="w-6 h-6" />
                     </motion.button>
                     
-                    <img 
+                    <SafeImage 
                       src={selectedAlbum.posts[selectedImageIndex]?.url} 
                       alt={selectedAlbum.posts[selectedImageIndex]?.caption}
                       className="max-w-full max-h-full object-contain"
@@ -1061,7 +1092,7 @@ function PublicWebsite() {
                   className="bg-white/5 backdrop-blur-md rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all border-2 border-white/10 hover:border-blue-400/50 hover:scale-105"
                 >
                   <div className="aspect-video bg-white/5 relative">
-                    <img 
+                    <SafeImage 
                       src={album.posts[0]?.url} 
                       alt={album.posts[0]?.caption}
                       className="w-full h-full object-cover"
@@ -1113,7 +1144,7 @@ function PublicWebsite() {
                   }}
                   className="aspect-square bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all border-2 border-white/10 hover:border-blue-400/50 hover:scale-110"
                 >
-                  <img 
+                  <SafeImage 
                     src={post.url} 
                     alt={post.caption}
                     className="w-full h-full object-cover"
